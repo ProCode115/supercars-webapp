@@ -349,24 +349,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupTheme();
 
-  // ========== PREVENT BODY SCROLL WHEN MODAL IS OPEN ==========
-  function preventScroll(e) {
-    e.preventDefault();
+  // ========== ADD ANIMATION TO BRAND CARDS ON SCROLL ==========
+  function setupCardAnimationOnScroll() {
+    const cards = document.querySelectorAll('.brand.card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'scale-in 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) forwards';
+        }
+      });
+    }, { threshold: 0.3 });
+
+    cards.forEach(card => {
+      observer.observe(card);
+    });
   }
 
-  const originalOpenModal = openModal;
-  window.openModal = function(...args) {
-    document.body.style.overflow = 'hidden';
-    document.addEventListener('touchmove', preventScroll, { passive: false });
-    originalOpenModal.apply(this, args);
-  };
+  setupCardAnimationOnScroll();
 
-  const originalCloseModal = closeModal;
-  closeModal = function() {
-    document.body.style.overflow = '';
-    document.removeEventListener('touchmove', preventScroll);
-    originalCloseModal();
-  };
   // ========== INTERSECTION OBSERVER FOR FOOTER FADE ==========
   const footerObserver = new IntersectionObserver((entries) => {
     const footer = document.getElementById('footer');
