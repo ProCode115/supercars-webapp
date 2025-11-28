@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="Premium Auto News & Reviews - Deine tägliche Dosis Supercar-News mit professionellen Animationen">
+  <title>AutoVerse — Premium Auto News</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='90' fill='%23ff0033'>🚗</text></svg>">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-2: #111111;
+      --card: #1a1a1a;
+      --border: #2a2a2a;
+      --text: #ffffff;
+      --text-muted: #999999;
+      --accent: #ff0033;
+      --accent-2: #ff6b6b;
+      --success: #00d084;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --duration: 0.3s;
+      --easing: cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #ffffff;
+        --bg-2: #f5f5f5;
+        --card: #f0f0f0;
+        --border: #e0e0e0;
+        --text: #000000;
+        --text-muted: #666666;
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow-x: hidden; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); transition: background 0.3s; line-height: 1.5; }
+
+    /* Header */
+    #header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      animation: slideDown 0.6s var(--easing);
+    }
+
+    #logo span { color: var(--accent); }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    #search-btn, #theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s;
+    }
+
+    #search-btn:hover, #theme-toggle:hover { background: var(--card); }
+
+    #hamburger {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+      color: var(--text);
+    }
+
+    /* Sidebar Menu */
+    #menu {
+      display: none;
+      position: fixed;
+      left: -100%;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--border);
+      padding: 80px 20px 20px;
+      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 90;
+      flex-direction: column;
+    }
+
+    #menu.open { left: 0; }
+
+    .menu-link {
+      color: var(--text);
+      text-decoration: none;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      transition: all 0.3s;
+      display: block;
+    }
+
+    .menu-link:hover { background: var(--card); transform: translateX(4px); }
+
+    #menu-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    /* Search Modal */
+    #search-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      animation: fadeIn 0.3s var(--easing);
+    }
+
+    #search-modal.active { display: flex; flex-direction: column; }
+
+    .search-container {
+      margin-top: 80px;
+      padding: 20px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    #search-input {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+    }
+
+    #search-results {
+      max-height: 400px;
+      overflow-y: auto;
+      margin-top: 16px;
+    }
+
+    /* Hero Section */
+    #hero {
+      position: relative;
+      height: 400px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      margin: 20px;
+      margin-bottom: 40px;
+    }
+
+    #slider-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .slider-item {
+      min-width: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      opacity: 0;
+      transition: opacity 0.6s var(--easing);
+    }
+
+    .slider-item.active { opacity: 1; }
+
+    .slider-item-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: white;
+    }
+
+    .slider-item-content h2 { font-size: 24px; margin-bottom: 8px; }
+    .slider-item-content p { font-size: 14px; opacity: 0.9; }
+
+    #featured-prev, #featured-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-size: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    #featured-prev { left: 16px; }
+    #featured-next { right: 16px; }
+
+    #featured-prev:hover, #featured-next:hover { background: rgba(255, 255, 255, 0.3); }
+
+    #featured-dots {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .slider-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .slider-dot.active { background: white; width: 24px; border-radius: 4px; }
+
+    /* Content Sections */
+    .section {
+      margin-bottom: 40px;
+      scroll-margin-top: 80px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      padding: 0 20px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-title button {
+      background: var(--card);
+      border: none;
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+    }
+
+    .section-title button:hover { background: var(--border); }
+
+    /* News Cards */
+    #trending-news {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      padding: 0 20px;
+    }
+
+    .news-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: scaleIn 0.6s var(--easing);
+    }
+
+    .news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+    .news-image {
+      width: 100%;
+      padding-top: 60%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .news-content {
+      padding: 12px;
+      position: relative;
+    }
+
+    .news-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 0, 51, 0.2);
+      color: var(--accent);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .news-title {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-top: 8px;
+    }
+
+    .news-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      display: block;
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 0 20px 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .filter-tab {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .filter-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* Feed Items */
+    #news-feed {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feed-item {
+      display: flex;
+      gap: 12px;
+      background: var(--card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: slideUp 0.6s var(--easing);
+    }
+
+    .feed-item:hover { background: var(--border); transform: translateX(4px); }
+
+    .feed-image {
+      width: 100px;
+      height: 100px;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .feed-content {
+      flex: 1;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .feed-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .feed-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .feed-meta {
+      display: flex;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .feed-badge {
+      background: rgba(255, 0, 51, 0.1);
+      color: var(--accent);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    #load-more {
+      padding: 12px 24px;
+      margin: 20px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    #load-more:hover { transform: scale(1.02); box-shadow: var(--shadow); }
+
+    /* Brand Grid */
+    #brand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 12px;
+      padding: 0 20px;
+    }
+
+    .brand-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: popIn 0.6s var(--easing);
+    }
+
+    .brand-card:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .brand-logo {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .brand-name {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Tab Navigation */
+    #tab-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 0;
+      padding: max(8px, env(safe-area-inset-bottom, 8px)) 0;
+      z-index: 50;
+    }
+
+    .tab-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 12px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 20px;
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      border-top: 2px solid var(--accent);
+    }
+
+    /* Modal */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 300;
+      animation: fadeIn 0.3s var(--easing);
+    }
+
+    #modal.show {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    #modal-inner {
+      background: var(--card);
+      width: 100%;
+      max-width: 600px;
+      border-radius: var(--radius) var(--radius) 0 0;
+      padding: 24px;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: modalSlideUp 0.4s var(--easing);
+    }
+
+    #modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--card);
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    /* Loading Spinner */
+    #loading-spinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none;
+      z-index: 400;
+    }
+
+    #loading-spinner.show { display: block; }
+
+    /* Toast Notifications */
+    #toast-container {
+      position: fixed;
+      bottom: 100px;
+      left: 16px;
+      right: 16px;
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      background: var(--card);
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      animation: toastSlideIn 0.4s var(--easing);
+      border-left: 3px solid var(--accent);
+    }
+
+    /* Animations */
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-100%); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(100%); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes popIn {
+      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+      50% { opacity: 0.8; transform: scale(1.1) rotate(2deg); }
+    }
+
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(100%); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes toastSlideIn {
+      from { opacity: 0; transform: translateX(-100%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes toastSlideOut {
+      from { opacity: 1; transform: translateX(0); }
+      to { opacity: 0; transform: translateX(-100%); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #trending-news { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+      .section-title { font-size: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      #header { padding: 8px 12px; }
+      #logo { font-size: 20px; }
+      #hamburger { display: block; }
+      #trending-news { grid-template-columns: repeat(2, 1fr); }
+      #brand-grid { grid-template-columns: repeat(3, 1fr); }
+      .feed-item { flex-direction: column; }
+      .feed-image { width: 100%; height: 120px; }
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar { display: none; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div id="logo">Auto<span>Verse</span></div>
+    <div class="header-actions">
+      <button id="search-btn" aria-label="Search">🔍</button>
+      <button id="theme-toggle" aria-label="Toggle theme">🌙</button>
+      <button id="hamburger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <!-- Sidebar Menu -->
+  <nav id="menu">
+    <button id="menu-close">✕</button>
+    <a href="#trending" class="menu-link">🔥 Trending</a>
+    <a href="#news" class="menu-link">📰 News</a>
+    <a href="#brands" class="menu-link">🏢 Brands</a>
+    <a href="#specs" class="menu-link">⚙️ Specs</a>
+    <hr style="border: 1px solid var(--border); margin: 20px 0;">
+    <a href="#" class="menu-link">💬 Feedback</a>
+    <a href="#" class="menu-link">⚙️ Settings</a>
+  </nav>
+
+  <!-- Search Modal -->
+  <div id="search-modal">
+    <div class="search-container">
+      <input id="search-input" type="text" placeholder="Suche Autos, Marken..." aria-label="Search">
+      <div id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="hero" class="section">
+    <div id="slider-track"></div>
+    <button id="featured-prev" aria-label="Previous slide">‹</button>
+    <button id="featured-next" aria-label="Next slide">›</button>
+    <div id="featured-dots"></div>
+  </section>
+
+  <!-- Trending Section -->
+  <section id="trending" class="section">
+    <div class="section-title">
+      🔥 Trending
+      <button id="refresh-trending">🔄</button>
+    </div>
+    <div id="trending-news"></div>
+  </section>
+
+  <!-- News Section -->
+  <section id="news" class="section">
+    <div class="section-title">📰 Latest News</div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">Alle</button>
+      <button class="filter-tab" data-filter="reviews">Reviews</button>
+      <button class="filter-tab" data-filter="launches">Launches</button>
+      <button class="filter-tab" data-filter="specs">Specs</button>
+    </div>
+    <div id="news-feed"></div>
+    <button id="load-more">📚 Weitere laden</button>
+  </section>
+
+  <!-- Brands Section -->
+  <section id="brands" class="section">
+    <div class="section-title">🏢 Brands</div>
+    <div id="brand-grid"></div>
+  </section>
+
+  <!-- Specs Section -->
+  <section id="specs" class="section">
+    <div class="section-title">⚙️ Specifications</div>
+    <div style="padding: 0 20px 120px; color: var(--text-muted);">
+      <p>Premium Auto-Spezifikationen und technische Details.</p>
+    </div>
+  </section>
+
+  <!-- Tab Navigation -->
+  <nav id="tab-nav">
+    <button class="tab-btn active" data-section="trending">🔥</button>
+    <button class="tab-btn" data-section="news">📰</button>
+    <button class="tab-btn" data-section="brands">🏢</button>
+    <button class="tab-btn" data-section="specs">⚙️</button>
+  </nav>
+
+  <!-- Modal -->
+  <div id="modal">
+    <button id="modal-close">✕</button>
+    <div id="modal-inner"></div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div id="loading-spinner"></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <script src="script-new.js"></script>
+</body>
+</html>

@@ -2,166 +2,135 @@
 <html lang="de">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Auto News — Premium</title>
-    <meta name="description" content="Moderne Auto-News App — Supersportwagen & Motorräder" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AutoVerse — Premium Auto News & Reviews</title>
+    <meta name="description" content="Erlebe die neuesten Supersportwagen News, exklusive Reviews und Live-Updates von den Top-Marken der Automobilwelt." />
     <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="images/icon-192.svg" />
-    <link rel="apple-touch-icon" href="images/icon-192.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23ff0033' width='192' height='192'/><text x='96' y='120' font-size='120' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'>A</text></svg>" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23ff0033' width='192' height='192'/><text x='96' y='120' font-size='120' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'>A</text></svg>" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="header">
-      <button class="hamburger" id="hamburger" aria-label="Menü" aria-expanded="false">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-      <h1 class="title">Auto News</h1>
-      <nav class="header-actions">
-        <a class="icon" href="https://www.google.com" title="Google" target="_blank" rel="noopener noreferrer">G</a>
-        <a class="icon" href="https://www.youtube.com" title="YouTube" target="_blank" rel="noopener noreferrer">Y</a>
-        <a class="icon" href="#" title="Mobile" rel="noopener noreferrer">M</a>
-      </nav>
+    <!-- ========== HEADER ========== -->
+    <header class="header" role="banner">
+      <div class="header-container">
+        <button class="hamburger" id="hamburger" aria-label="Navigation" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+        <div class="logo-section">
+          <div class="logo">A</div>
+          <h1 class="title">AutoVerse</h1>
+        </div>
+        <nav class="header-actions">
+          <button class="search-btn" id="search-btn" aria-label="Suche">🔍</button>
+          <button class="theme-toggle" id="theme-toggle" aria-label="Design">🌙</button>
+        </nav>
+      </div>
     </header>
 
-    <aside class="slide-menu" id="menu">
-      <ul>
-        <li><a href="#cars">Autos</a></li>
-        <li><a href="#bikes">Motorräder</a></li>
-        <li><a href="#news">News</a></li>
-      </ul>
+    <!-- ========== SIDEBAR MENU ========== -->
+    <aside class="slide-menu" id="menu" role="navigation" aria-label="Navigation">
+      <button class="menu-close" id="menu-close">✕</button>
+      <nav class="menu-nav">
+        <a href="#trending" class="menu-link" data-section="trending">📈 Trending</a>
+        <a href="#latest" class="menu-link" data-section="latest">⚡ News</a>
+        <a href="#brands" class="menu-link" data-section="brands">🏁 Marken</a>
+        <a href="#specs" class="menu-link" data-section="specs">⚙️ Specs</a>
+      </nav>
     </aside>
 
-    <main>
-      <!-- HERO BANNER WITH NEWS SLIDER -->
-      <section class="news-banner" id="news">
-        <div class="news-slider" id="news-slider" aria-live="polite">
-          <article class="slide active" data-image="https://images.unsplash.com/photo-1574802394900-bb163fac50c1?w=1200&h=400&fit=crop" data-url="https://www.motor1.com">
-            <h2>Ferrari 296 GTB – Hybrid Power</h2>
-            <p>Der neue V6-Hybrid mit 830 PS. Neueste Technologie & Performance.</p>
-          </article>
-          <article class="slide" data-image="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&h=400&fit=crop" data-url="https://www.motor1.com">
-            <h2>Porsche 911 GT3 RS – Track Beast</h2>
-            <p>Extreme Aerodynamik trifft 525 PS. Nur für Rennstrecke & Emotion.</p>
-          </article>
-          <article class="slide" data-image="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&h=400&fit=crop" data-url="https://www.motor1.com">
-            <h2>Lamborghini Revuelto – Die Zukunft</h2>
-            <p>Erstes Hybrid-Flaggschiff mit unglaublich eleganter Linienführung.</p>
-          </article>
-          <article class="slide" data-image="https://images.unsplash.com/photo-1553882900-f2b6fc913f5b?w=1200&h=400&fit=crop" data-url="https://www.motor1.com">
-            <h2>BMW M440i – Performance meets Elegance</h2>
-            <p>Neue Ära des M-Designs mit innovativem Hybrid-Antrieb.</p>
-          </article>
-        </div>
-        <button class="news-slider-nav prev" id="slider-prev" aria-label="Vorherige News">‹</button>
-        <button class="news-slider-nav next" id="slider-next" aria-label="Nächste News">›</button>
-        <div class="slider-dots" id="slider-dots"></div>
-      </section>
-
-      <section id="cars" class="brands">
-        <div class="section-header">
-          <h3>🏁 Supersportwagen</h3>
-          <p>Die heißesten Marken & Modelle</p>
-        </div>
-        <div class="brand-grid" id="car-grid">
-          <button class="brand card highlight" data-name="Ferrari" data-url="https://www.ferrari.com" data-info="Legendäre italienische Marke mit über 75 Jahren Performance-Geschichte." data-images='["https://images.unsplash.com/photo-1583274073318-5f1c5299a0f8?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1567818735868-e71b99932e29?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%23dc143c' width='100' height='60'/%3E%3Ctext x='50' y='35' font-size='24' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EFERRARI%3C/text%3E%3C/svg%3E" alt="Ferrari" />
-          </button>
-          <button class="brand card" data-name="Porsche" data-url="https://www.porsche.com" data-info="Deutsches Ingenieur-Meisterwerk. Sportwagen seit 1948." data-images='["https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23000'/%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='50' y='55' font-size='20' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EP%3C/text%3E%3C/svg%3E" alt="Porsche" />
-          </button>
-          <button class="brand card" data-name="Lamborghini" data-url="https://www.lamborghini.com" data-info="italienischer Luxus-Sportwagen mit futuristischem Design." data-images='["https://images.unsplash.com/photo-1545649341-ba2ecc8b63c1?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1567818735868-e71b99932e29?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23ffd300' width='100' height='100'/%3E%3Ctext x='50' y='60' font-size='28' font-weight='bold' fill='black' text-anchor='middle' font-family='Arial'%3EL%3C/text%3E%3C/svg%3E" alt="Lamborghini" />
-          </button>
-          <button class="brand card" data-name="Bugatti" data-url="https://www.bugatti.com" data-info="Die Königin der Hypercars. Ultra-Limited Edition." data-images='["https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1514306688900-5d96cf8bdd6d?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%23c90016' width='100' height='60'/%3E%3Ctext x='50' y='35' font-size='20' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EBUGATTI%3C/text%3E%3C/svg%3E" alt="Bugatti" />
-          </button>
-          <button class="brand card" data-name="McLaren" data-url="https://www.mclaren.com" data-info="Britische Hybrid-Sportwagenmanufaktur. Pure Power." data-images='["https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1517488881594-2787fef5ebf7?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23FF8700' width='100' height='100'/%3E%3Ctext x='50' y='60' font-size='28' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EM%3C/text%3E%3C/svg%3E" alt="McLaren" />
-          </button>
-          <button class="brand card" data-name="Brabus" data-url="https://www.brabus.com" data-info="Meister der Performance-Tuning. Mercedes-Spezialisten." data-images='["https://images.unsplash.com/photo-1561584142-0c7da83e0aed?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1514306688900-5d96cf8bdd6d?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%23000' width='100' height='60'/%3E%3Ctext x='50' y='35' font-size='20' font-weight='bold' fill='%23FFD700' text-anchor='middle' font-family='Arial'%3EBRABUS%3C/text%3E%3C/svg%3E" alt="Brabus" />
-          </button>
-          <button class="brand card" data-name="Koenigsegg" data-url="https://www.koenigsegg.com" data-info="Schwedischer Hypercar-Bauer. Jedes Auto ist ein Kunstwerk." data-images='["https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1522869635100-ce306c8b3c92?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23003DA5' width='100' height='100'/%3E%3Ctext x='50' y='60' font-size='24' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EK%3C/text%3E%3C/svg%3E" alt="Koenigsegg" />
-          </button>
-        </div>
-      </section>
-
-      <section id="bikes" class="brands">
-        <div class="section-header">
-          <h3>🏍️ Top-Motorräder</h3>
-          <p>Leicht, schnell, ikonisch</p>
-        </div>
-        <div class="brand-grid" id="bike-grid">
-          <button class="brand card" data-name="Yamaha" data-url="https://www.yamaha-motor.eu" data-info="Japanische Legende. Hochleistungs-Supersportler seit Jahrzehnt." data-images='["https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1517169757799-2f3fcb0f6b8a?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%231e90ff' width='100' height='60'/%3E%3Ctext x='50' y='35' font-size='18' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EYAMAHA%3C/text%3E%3C/svg%3E" alt="Yamaha" />
-          </button>
-          <button class="brand card" data-name="Harley-Davidson" data-url="https://www.harley-davidson.com" data-info="Amerikanische Icon. Pure Rebellion & Motorcycle Soul." data-images='["https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1507041957456-9c6e6de411be?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%23FF6600' width='100' height='60'/%3E%3Ctext x='50' y='35' font-size='14' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EH-D%3C/text%3E%3C/svg%3E" alt="Harley-Davidson" />
-          </button>
-          <button class="brand card" data-name="Ducati" data-url="https://www.ducati.com" data-info="Italienische Performance. Das Herz pocht renaissanciert." data-images='["https://images.unsplash.com/photo-1507041957456-9c6e6de411be?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23FF0000' width='100' height='100'/%3E%3Ctext x='50' y='60' font-size='28' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3ED%3C/text%3E%3C/svg%3E" alt="Ducati" />
-          </button>
-          <button class="brand card" data-name="Kawasaki" data-url="https://www.kawasaki.com" data-info="Grüner Rennwagen. Extreme Kraftentfaltung." data-images='["https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1517169757799-2f3fcb0f6b8a?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%2300AA00' width='100' height='60'/%3E%3Ctext x='50' y='35' font-size='16' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3EKawasaki%3C/text%3E%3C/svg%3E" alt="Kawasaki" />
-          </button>
-          <button class="brand card" data-name="Suzuki" data-url="https://www.suzuki.com" data-info="Japanische Rennmaschine. Gsx-R Serie ist legendär." data-images='["https://images.unsplash.com/photo-1517169757799-2f3fcb0f6b8a?w=400&h=300&fit=crop","https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"]'>
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Crect fill='%23000080' width='100' height='60'/%3E%3Ctext x='50' y='35' font-size='16' font-weight='bold' fill='white' text-anchor='middle' font-family='Arial'%3ESuzuki%3C/text%3E%3C/svg%3E" alt="Suzuki" />
-          </button>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- iOS-STYLE TAB NAVIGATION AT BOTTOM -->
-    <nav class="tab-nav" id="tab-nav">
-      <button class="tab-btn active" data-section="cars" aria-label="Autos">
-        <span class="tab-icon">🏁</span>
-        <span>Autos</span>
-      </button>
-      <button class="tab-btn" data-section="bikes" aria-label="Motorräder">
-        <span class="tab-icon">🏍️</span>
-        <span>Motorräder</span>
-      </button>
-      <button class="tab-btn" data-section="news" aria-label="News">
-        <span class="tab-icon">📰</span>
-        <span>News</span>
-      </button>
-    </nav>
-
-    <!-- FOOTER ENHANCED -->
-    <footer class="footer" id="footer">
-      <div class="footer-inner">
-        <div class="links">
-          <a href="#" title="AGB">AGB</a>
-          <a href="#" title="Datenschutz">Datenschutz</a>
-          <a href="#" title="Impressum">Impressum</a>
-        </div>
-        <div class="social">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram">📷 Instagram</a>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube">🎥 YouTube</a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" title="TikTok">♪ TikTok</a>
-        </div>
-      </div>
-    </footer>
-
-    <div id="modal" class="modal" aria-hidden="true">
-      <div class="modal-content">
-        <button class="modal-close" id="modal-close" aria-label="Schließen">✕</button>
-        <div class="modal-info" id="modal-info">
-          <h3 id="modal-title">Marke</h3>
-          <p id="modal-description">Beschreibung</p>
-        </div>
-        <div class="modal-carousel" id="modal-carousel"></div>
-        <div class="modal-footer">
-          <a id="modal-visit" class="btn" href="#" target="_blank" rel="noopener noreferrer">🔗 Webseite besuchen</a>
-        </div>
+    <!-- ========== SEARCH MODAL ========== -->
+    <div class="search-modal" id="search-modal" aria-hidden="true">
+      <div class="search-content">
+        <input type="search" id="search-input" class="search-input" placeholder="Suche..." />
+        <div id="search-results"></div>
       </div>
     </div>
+
+    <main role="main">
+      <!-- ========== HERO SECTION ========== -->
+      <section class="hero" id="hero">
+        <div class="slider" id="featured-slider">
+          <div class="slider-track" id="slider-track"></div>
+        </div>
+        <div class="slider-controls">
+          <button class="slider-btn prev" id="featured-prev">←</button>
+          <button class="slider-btn next" id="featured-next">→</button>
+        </div>
+        <div class="slider-dots" id="featured-dots"></div>
+      </section>
+
+      <!-- ========== TRENDING SECTION ========== -->
+      <section class="section" id="trending">
+        <div class="section-header">
+          <h2>📈 Trending Jetzt</h2>
+          <button class="section-refresh" id="refresh-trending">🔄</button>
+        </div>
+        <div class="news-grid" id="trending-news"></div>
+      </section>
+
+      <!-- ========== NEWS FEED SECTION ========== -->
+      <section class="section" id="latest">
+        <div class="section-header">
+          <h2>⚡ Live News Feed</h2>
+        </div>
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">Alle</button>
+          <button class="filter-tab" data-filter="reviews">Reviews</button>
+          <button class="filter-tab" data-filter="launches">Launches</button>
+          <button class="filter-tab" data-filter="specs">Specs</button>
+        </div>
+        <div class="news-feed" id="news-feed"></div>
+        <button class="load-more" id="load-more">Mehr News laden</button>
+      </section>
+
+      <!-- ========== BRANDS SECTION ========== -->
+      <section class="section" id="brands">
+        <div class="section-header">
+          <h2>🏁 Top Marken</h2>
+        </div>
+        <div class="brand-grid" id="brand-grid"></div>
+      </section>
+
+      <!-- ========== SPECS SECTION ========== -->
+      <section class="section" id="specs">
+        <div class="section-header">
+          <h2>⚙️ Specs & Infos</h2>
+        </div>
+        <div class="specs-list" id="specs-list"></div>
+      </section>
+    </main>
+
+    <!-- ========== BOTTOM TAB NAV ========== -->
+    <nav class="tab-nav" id="tab-nav">
+      <button class="tab-btn active" data-section="trending">📈<span>Trending</span></button>
+      <button class="tab-btn" data-section="latest">⚡<span>News</span></button>
+      <button class="tab-btn" data-section="brands">🏁<span>Marken</span></button>
+      <button class="tab-btn" data-section="specs">⚙️<span>Specs</span></button>
+    </nav>
+
+    <!-- ========== MODAL ========== -->
+    <div id="modal" class="modal" aria-hidden="true">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close">✕</button>
+        <div id="modal-inner"></div>
+      </div>
+    </div>
+
+    <!-- ========== LOADING ========== -->
+    <div class="loading-spinner" id="loading-spinner" aria-hidden="true">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- ========== TOAST ========== -->
+    <div class="toast-container" id="toast-container"></div>
 
     <script src="script-new.js"></script>
   </body>
