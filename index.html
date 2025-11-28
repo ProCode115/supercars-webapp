@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Auto News — Premium</title>
+    <meta name="description" content="Moderne Auto-News App — Supersportwagen & Motorräder" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="images/icon-192.svg" />
+    <link rel="apple-touch-icon" href="images/icon-192.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <button class="hamburger" id="hamburger" aria-label="Menü" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+      <h1 class="title">Auto News</h1>
+      <nav class="header-actions">
+        <a class="icon" href="https://www.google.com" title="Google" target="_blank" rel="noopener noreferrer">G</a>
+        <a class="icon" href="https://www.youtube.com" title="YouTube" target="_blank" rel="noopener noreferrer">Y</a>
+        <a class="icon" href="#" title="Mobile" rel="noopener noreferrer">M</a>
+      </nav>
+    </header>
+
+    <aside class="slide-menu" id="menu">
+      <ul>
+        <li><a href="#cars">Autos</a></li>
+        <li><a href="#bikes">Motorräder</a></li>
+        <li><a href="#news">News</a></li>
+      </ul>
+    </aside>
+
+    <main>
+      <section class="news-banner" id="news">
+        <div class="news-slider" id="news-slider" aria-live="polite">
+          <article class="slide active">
+            <h2>Ferrari zeigt neuen V12 — Höchste Leistung</h2>
+            <p>Erste Eindrücke vom neuen Supersportwagen.</p>
+          </article>
+          <article class="slide">
+            <h2>Lamborghini präsentiert Hybrid-Supersportler</h2>
+            <p>Extreme Performance trifft Elektrifizierung.</p>
+          </article>
+          <article class="slide">
+            <h2>Porsche feiert Rennsiege</h2>
+            <p>Neue Modelle stärken die Rennsport-Philosophie.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="cars" class="brands">
+        <div class="section-header">
+          <h3>Supersportwagen</h3>
+          <p>Die heißesten Marken & Modelle</p>
+        </div>
+        <div class="brand-grid" id="car-grid">
+          <button class="brand card highlight" data-name="Ferrari" data-url="https://www.ferrari.com" data-images='["images/ferrari-1.svg","images/ferrari-2.svg"]'>
+            <img src="images/logo-ferrari.svg" alt="Ferrari" />
+          </button>
+          <button class="brand card" data-name="Lamborghini" data-url="https://www.lamborghini.com" data-images='["images/lamborghini-1.svg"]'>
+            <img src="images/logo-lamborghini.svg" alt="Lamborghini" />
+          </button>
+          <button class="brand card" data-name="Porsche" data-url="https://www.porsche.com" data-images='["images/porsche-1.svg"]'>
+            <img src="images/logo-porsche.svg" alt="Porsche" />
+          </button>
+          <button class="brand card" data-name="Bugatti" data-url="https://www.bugatti.com" data-images='["images/bugatti-1.svg"]'>
+            <img src="images/logo-bugatti.svg" alt="Bugatti" />
+          </button>
+          <button class="brand card" data-name="McLaren" data-url="https://www.mclaren.com" data-images='["images/mclaren-1.svg"]'>
+            <img src="images/logo-mclaren.svg" alt="McLaren" />
+          </button>
+        </div>
+      </section>
+
+      <section id="bikes" class="brands">
+        <div class="section-header">
+          <h3>Top-Motorräder</h3>
+          <p>Leicht, schnell, ikonisch</p>
+        </div>
+        <div class="brand-grid" id="bike-grid">
+          <button class="brand card" data-name="Yamaha" data-url="https://www.yamaha-motor.eu" data-images='["images/yamaha-1.svg"]'>
+            <img src="images/logo-yamaha.svg" alt="Yamaha" />
+          </button>
+          <button class="brand card" data-name="Harley-Davidson" data-url="https://www.harley-davidson.com" data-images='["images/harley-1.svg"]'>
+            <img src="images/logo-harley.svg" alt="Harley-Davidson" />
+          </button>
+          <button class="brand card" data-name="Ducati" data-url="https://www.ducati.com" data-images='["images/ducati-1.svg"]'>
+            <img src="images/logo-ducati.svg" alt="Ducati" />
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="links">
+          <a href="#">AGB</a>
+          <a href="#">Datenschutz</a>
+        </div>
+        <div class="social">
+          <a href="#" title="Instagram">IG</a>
+          <a href="#" title="YouTube">YT</a>
+        </div>
+      </div>
+    </footer>
+
+    <div id="modal" class="modal" aria-hidden="true">
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close" aria-label="Schließen">✕</button>
+        <div class="modal-carousel" id="modal-carousel"></div>
+        <div class="modal-footer">
+          <a id="modal-visit" class="btn" href="#" target="_blank" rel="noopener noreferrer">Marke besuchen</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

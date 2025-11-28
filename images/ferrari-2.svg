@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500">
+  <rect width="100%" height="100%" fill="#0a0a0a"/>
+  <g transform="translate(40,40)">
+    <rect rx="12" width="820" height="420" fill="#111" stroke="#ff0033" stroke-width="2"/>
+    <text x="60" y="90" font-family="Poppins" font-weight="700" font-size="44" fill="#ff0033">Ferrari Testarossa — Classic</text>
+  </g>
+</svg>
